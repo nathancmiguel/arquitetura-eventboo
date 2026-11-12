@@ -6,7 +6,7 @@ import { dadosOuFalha } from "#/lib/carregar.ts";
 import { utcParaDataLocal } from "#/lib/datas.ts";
 import { buscarEventoParaEdicao, editarEvento } from "#/server/eventos.ts";
 
-export const Route = createFileRoute("/organizador/eventos/$id/editar")({
+export const Route = createFileRoute("/_private/organizador/eventos/$id/editar")({
 	loader: async ({ params, location }) => {
 		const eventoId = Number(params.id);
 		if (!Number.isInteger(eventoId) || eventoId <= 0) throw notFound();

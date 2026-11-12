@@ -13,7 +13,7 @@ import { cn } from "#/lib/utils.ts";
 import type { Inscrito } from "#/repositories/contratos.ts";
 import { listarInscritos, marcarPresenca } from "#/server/presenca.ts";
 
-export const Route = createFileRoute("/organizador/eventos/$id/inscritos")({
+export const Route = createFileRoute("/_private/organizador/eventos/$id/inscritos")({
 	validateSearch: z.object({ pagina: z.number().int().min(1).catch(1).default(1) }),
 	loaderDeps: ({ search }) => ({ pagina: search.pagina }),
 	loader: async ({ params, deps, location }) => {

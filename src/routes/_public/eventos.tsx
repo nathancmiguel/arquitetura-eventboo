@@ -12,7 +12,7 @@ import type { EventoResumo, UsuarioSessao } from "#/repositories/contratos.ts";
 import { listarEventos } from "#/server/eventos.ts";
 import { inscrever } from "#/server/inscricoes.ts";
 
-export const Route = createFileRoute("/eventos")({
+export const Route = createFileRoute("/_public/eventos")({
 	loader: async ({ location }) =>
 		dadosOuFalha(await listarEventos(), location.href),
 	head: () => ({ meta: [{ title: "Próximos eventos — Eventboo" }] }),

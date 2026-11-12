@@ -10,105 +10,124 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CriarContaRouteImport } from './routes/criar-conta'
-import { Route as EventosRouteImport } from './routes/eventos'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as MinhasInscricoesRouteImport } from './routes/minhas-inscricoes'
-import { Route as OrganizadorRouteRouteImport } from './routes/organizador/route'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as PrivateRouteRouteImport } from './routes/_private/route'
+import { Route as PublicRouteRouteImport } from './routes/_public/route'
+import { Route as AuthCriarContaRouteImport } from './routes/_auth/criar-conta'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as PrivateMinhasInscricoesRouteImport } from './routes/_private/minhas-inscricoes'
+import { Route as PrivateOrganizadorRouteRouteImport } from './routes/_private/organizador/route'
+import { Route as PublicEventosRouteImport } from './routes/_public/eventos'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as OrganizadorEventosNovoRouteImport } from './routes/organizador/eventos/novo'
-import { Route as OrganizadorEventosIdEditarRouteImport } from './routes/organizador/eventos/$id/editar'
-import { Route as OrganizadorEventosIdInscritosRouteImport } from './routes/organizador/eventos/$id/inscritos'
+import { Route as PrivateOrganizadorEventosNovoRouteImport } from './routes/_private/organizador/eventos/novo'
+import { Route as PrivateOrganizadorEventosIdEditarRouteImport } from './routes/_private/organizador/eventos/$id/editar'
+import { Route as PrivateOrganizadorEventosIdInscritosRouteImport } from './routes/_private/organizador/eventos/$id/inscritos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CriarContaRoute = CriarContaRouteImport.update({
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivateRouteRoute = PrivateRouteRouteImport.update({
+  id: '/_private',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicRouteRoute = PublicRouteRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCriarContaRoute = AuthCriarContaRouteImport.update({
   id: '/criar-conta',
   path: '/criar-conta',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthRouteRoute,
 } as any)
-const EventosRoute = EventosRouteImport.update({
-  id: '/eventos',
-  path: '/eventos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
+const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthRouteRoute,
 } as any)
-const MinhasInscricoesRoute = MinhasInscricoesRouteImport.update({
+const PrivateMinhasInscricoesRoute = PrivateMinhasInscricoesRouteImport.update({
   id: '/minhas-inscricoes',
   path: '/minhas-inscricoes',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PrivateRouteRoute,
 } as any)
-const OrganizadorRouteRoute = OrganizadorRouteRouteImport.update({
+const PrivateOrganizadorRouteRoute = PrivateOrganizadorRouteRouteImport.update({
   id: '/organizador',
   path: '/organizador',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PrivateRouteRoute,
+} as any)
+const PublicEventosRoute = PublicEventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
+  getParentRoute: () => PublicRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OrganizadorEventosNovoRoute = OrganizadorEventosNovoRouteImport.update({
-  id: '/eventos/novo',
-  path: '/eventos/novo',
-  getParentRoute: () => OrganizadorRouteRoute,
-} as any)
-const OrganizadorEventosIdEditarRoute =
-  OrganizadorEventosIdEditarRouteImport.update({
+const PrivateOrganizadorEventosNovoRoute =
+  PrivateOrganizadorEventosNovoRouteImport.update({
+    id: '/eventos/novo',
+    path: '/eventos/novo',
+    getParentRoute: () => PrivateOrganizadorRouteRoute,
+  } as any)
+const PrivateOrganizadorEventosIdEditarRoute =
+  PrivateOrganizadorEventosIdEditarRouteImport.update({
     id: '/eventos/$id/editar',
     path: '/eventos/$id/editar',
-    getParentRoute: () => OrganizadorRouteRoute,
+    getParentRoute: () => PrivateOrganizadorRouteRoute,
   } as any)
-const OrganizadorEventosIdInscritosRoute =
-  OrganizadorEventosIdInscritosRouteImport.update({
+const PrivateOrganizadorEventosIdInscritosRoute =
+  PrivateOrganizadorEventosIdInscritosRouteImport.update({
     id: '/eventos/$id/inscritos',
     path: '/eventos/$id/inscritos',
-    getParentRoute: () => OrganizadorRouteRoute,
+    getParentRoute: () => PrivateOrganizadorRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/organizador': typeof OrganizadorRouteRouteWithChildren
-  '/criar-conta': typeof CriarContaRoute
-  '/eventos': typeof EventosRoute
-  '/login': typeof LoginRoute
-  '/minhas-inscricoes': typeof MinhasInscricoesRoute
+  '/organizador': typeof PrivateOrganizadorRouteRouteWithChildren
+  '/criar-conta': typeof AuthCriarContaRoute
+  '/login': typeof AuthLoginRoute
+  '/minhas-inscricoes': typeof PrivateMinhasInscricoesRoute
+  '/eventos': typeof PublicEventosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/organizador/eventos/novo': typeof OrganizadorEventosNovoRoute
-  '/organizador/eventos/$id/editar': typeof OrganizadorEventosIdEditarRoute
-  '/organizador/eventos/$id/inscritos': typeof OrganizadorEventosIdInscritosRoute
+  '/organizador/eventos/novo': typeof PrivateOrganizadorEventosNovoRoute
+  '/organizador/eventos/$id/editar': typeof PrivateOrganizadorEventosIdEditarRoute
+  '/organizador/eventos/$id/inscritos': typeof PrivateOrganizadorEventosIdInscritosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/organizador': typeof OrganizadorRouteRouteWithChildren
-  '/criar-conta': typeof CriarContaRoute
-  '/eventos': typeof EventosRoute
-  '/login': typeof LoginRoute
-  '/minhas-inscricoes': typeof MinhasInscricoesRoute
+  '/organizador': typeof PrivateOrganizadorRouteRouteWithChildren
+  '/criar-conta': typeof AuthCriarContaRoute
+  '/login': typeof AuthLoginRoute
+  '/minhas-inscricoes': typeof PrivateMinhasInscricoesRoute
+  '/eventos': typeof PublicEventosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/organizador/eventos/novo': typeof OrganizadorEventosNovoRoute
-  '/organizador/eventos/$id/editar': typeof OrganizadorEventosIdEditarRoute
-  '/organizador/eventos/$id/inscritos': typeof OrganizadorEventosIdInscritosRoute
+  '/organizador/eventos/novo': typeof PrivateOrganizadorEventosNovoRoute
+  '/organizador/eventos/$id/editar': typeof PrivateOrganizadorEventosIdEditarRoute
+  '/organizador/eventos/$id/inscritos': typeof PrivateOrganizadorEventosIdInscritosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/organizador': typeof OrganizadorRouteRouteWithChildren
-  '/criar-conta': typeof CriarContaRoute
-  '/eventos': typeof EventosRoute
-  '/login': typeof LoginRoute
-  '/minhas-inscricoes': typeof MinhasInscricoesRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/_private': typeof PrivateRouteRouteWithChildren
+  '/_public': typeof PublicRouteRouteWithChildren
+  '/_private/organizador': typeof PrivateOrganizadorRouteRouteWithChildren
+  '/_auth/criar-conta': typeof AuthCriarContaRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_private/minhas-inscricoes': typeof PrivateMinhasInscricoesRoute
+  '/_public/eventos': typeof PublicEventosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/organizador/eventos/novo': typeof OrganizadorEventosNovoRoute
-  '/organizador/eventos/$id/editar': typeof OrganizadorEventosIdEditarRoute
-  '/organizador/eventos/$id/inscritos': typeof OrganizadorEventosIdInscritosRoute
+  '/_private/organizador/eventos/novo': typeof PrivateOrganizadorEventosNovoRoute
+  '/_private/organizador/eventos/$id/editar': typeof PrivateOrganizadorEventosIdEditarRoute
+  '/_private/organizador/eventos/$id/inscritos': typeof PrivateOrganizadorEventosIdInscritosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,9 +135,9 @@ export interface FileRouteTypes {
     | '/'
     | '/organizador'
     | '/criar-conta'
-    | '/eventos'
     | '/login'
     | '/minhas-inscricoes'
+    | '/eventos'
     | '/api/auth/$'
     | '/organizador/eventos/novo'
     | '/organizador/eventos/$id/editar'
@@ -128,9 +147,9 @@ export interface FileRouteTypes {
     | '/'
     | '/organizador'
     | '/criar-conta'
-    | '/eventos'
     | '/login'
     | '/minhas-inscricoes'
+    | '/eventos'
     | '/api/auth/$'
     | '/organizador/eventos/novo'
     | '/organizador/eventos/$id/editar'
@@ -138,24 +157,25 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/organizador'
-    | '/criar-conta'
-    | '/eventos'
-    | '/login'
-    | '/minhas-inscricoes'
+    | '/_auth'
+    | '/_private'
+    | '/_public'
+    | '/_private/organizador'
+    | '/_auth/criar-conta'
+    | '/_auth/login'
+    | '/_private/minhas-inscricoes'
+    | '/_public/eventos'
     | '/api/auth/$'
-    | '/organizador/eventos/novo'
-    | '/organizador/eventos/$id/editar'
-    | '/organizador/eventos/$id/inscritos'
+    | '/_private/organizador/eventos/novo'
+    | '/_private/organizador/eventos/$id/editar'
+    | '/_private/organizador/eventos/$id/inscritos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  OrganizadorRouteRoute: typeof OrganizadorRouteRouteWithChildren
-  CriarContaRoute: typeof CriarContaRoute
-  EventosRoute: typeof EventosRoute
-  LoginRoute: typeof LoginRoute
-  MinhasInscricoesRoute: typeof MinhasInscricoesRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  PrivateRouteRoute: typeof PrivateRouteRouteWithChildren
+  PublicRouteRoute: typeof PublicRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -168,40 +188,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/criar-conta': {
-      id: '/criar-conta'
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_private': {
+      id: '/_private'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PrivateRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/criar-conta': {
+      id: '/_auth/criar-conta'
       path: '/criar-conta'
       fullPath: '/criar-conta'
-      preLoaderRoute: typeof CriarContaRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthCriarContaRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/eventos': {
-      id: '/eventos'
-      path: '/eventos'
-      fullPath: '/eventos'
-      preLoaderRoute: typeof EventosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
+    '/_auth/login': {
+      id: '/_auth/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/minhas-inscricoes': {
-      id: '/minhas-inscricoes'
+    '/_private/minhas-inscricoes': {
+      id: '/_private/minhas-inscricoes'
       path: '/minhas-inscricoes'
       fullPath: '/minhas-inscricoes'
-      preLoaderRoute: typeof MinhasInscricoesRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PrivateMinhasInscricoesRouteImport
+      parentRoute: typeof PrivateRouteRoute
     }
-    '/organizador': {
-      id: '/organizador'
+    '/_private/organizador': {
+      id: '/_private/organizador'
       path: '/organizador'
       fullPath: '/organizador'
-      preLoaderRoute: typeof OrganizadorRouteRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PrivateOrganizadorRouteRouteImport
+      parentRoute: typeof PrivateRouteRoute
+    }
+    '/_public/eventos': {
+      id: '/_public/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof PublicEventosRouteImport
+      parentRoute: typeof PublicRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -210,52 +251,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/organizador/eventos/novo': {
-      id: '/organizador/eventos/novo'
+    '/_private/organizador/eventos/novo': {
+      id: '/_private/organizador/eventos/novo'
       path: '/eventos/novo'
       fullPath: '/organizador/eventos/novo'
-      preLoaderRoute: typeof OrganizadorEventosNovoRouteImport
-      parentRoute: typeof OrganizadorRouteRoute
+      preLoaderRoute: typeof PrivateOrganizadorEventosNovoRouteImport
+      parentRoute: typeof PrivateOrganizadorRouteRoute
     }
-    '/organizador/eventos/$id/editar': {
-      id: '/organizador/eventos/$id/editar'
+    '/_private/organizador/eventos/$id/editar': {
+      id: '/_private/organizador/eventos/$id/editar'
       path: '/eventos/$id/editar'
       fullPath: '/organizador/eventos/$id/editar'
-      preLoaderRoute: typeof OrganizadorEventosIdEditarRouteImport
-      parentRoute: typeof OrganizadorRouteRoute
+      preLoaderRoute: typeof PrivateOrganizadorEventosIdEditarRouteImport
+      parentRoute: typeof PrivateOrganizadorRouteRoute
     }
-    '/organizador/eventos/$id/inscritos': {
-      id: '/organizador/eventos/$id/inscritos'
+    '/_private/organizador/eventos/$id/inscritos': {
+      id: '/_private/organizador/eventos/$id/inscritos'
       path: '/eventos/$id/inscritos'
       fullPath: '/organizador/eventos/$id/inscritos'
-      preLoaderRoute: typeof OrganizadorEventosIdInscritosRouteImport
-      parentRoute: typeof OrganizadorRouteRoute
+      preLoaderRoute: typeof PrivateOrganizadorEventosIdInscritosRouteImport
+      parentRoute: typeof PrivateOrganizadorRouteRoute
     }
   }
 }
 
-interface OrganizadorRouteRouteChildren {
-  OrganizadorEventosNovoRoute: typeof OrganizadorEventosNovoRoute
-  OrganizadorEventosIdEditarRoute: typeof OrganizadorEventosIdEditarRoute
-  OrganizadorEventosIdInscritosRoute: typeof OrganizadorEventosIdInscritosRoute
+interface AuthRouteRouteChildren {
+  AuthCriarContaRoute: typeof AuthCriarContaRoute
+  AuthLoginRoute: typeof AuthLoginRoute
 }
 
-const OrganizadorRouteRouteChildren: OrganizadorRouteRouteChildren = {
-  OrganizadorEventosNovoRoute: OrganizadorEventosNovoRoute,
-  OrganizadorEventosIdEditarRoute: OrganizadorEventosIdEditarRoute,
-  OrganizadorEventosIdInscritosRoute: OrganizadorEventosIdInscritosRoute,
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthCriarContaRoute: AuthCriarContaRoute,
+  AuthLoginRoute: AuthLoginRoute,
 }
 
-const OrganizadorRouteRouteWithChildren =
-  OrganizadorRouteRoute._addFileChildren(OrganizadorRouteRouteChildren)
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
+interface PrivateOrganizadorRouteRouteChildren {
+  PrivateOrganizadorEventosNovoRoute: typeof PrivateOrganizadorEventosNovoRoute
+  PrivateOrganizadorEventosIdEditarRoute: typeof PrivateOrganizadorEventosIdEditarRoute
+  PrivateOrganizadorEventosIdInscritosRoute: typeof PrivateOrganizadorEventosIdInscritosRoute
+}
+
+const PrivateOrganizadorRouteRouteChildren: PrivateOrganizadorRouteRouteChildren =
+  {
+    PrivateOrganizadorEventosNovoRoute: PrivateOrganizadorEventosNovoRoute,
+    PrivateOrganizadorEventosIdEditarRoute:
+      PrivateOrganizadorEventosIdEditarRoute,
+    PrivateOrganizadorEventosIdInscritosRoute:
+      PrivateOrganizadorEventosIdInscritosRoute,
+  }
+
+const PrivateOrganizadorRouteRouteWithChildren =
+  PrivateOrganizadorRouteRoute._addFileChildren(
+    PrivateOrganizadorRouteRouteChildren,
+  )
+
+interface PrivateRouteRouteChildren {
+  PrivateOrganizadorRouteRoute: typeof PrivateOrganizadorRouteRouteWithChildren
+  PrivateMinhasInscricoesRoute: typeof PrivateMinhasInscricoesRoute
+}
+
+const PrivateRouteRouteChildren: PrivateRouteRouteChildren = {
+  PrivateOrganizadorRouteRoute: PrivateOrganizadorRouteRouteWithChildren,
+  PrivateMinhasInscricoesRoute: PrivateMinhasInscricoesRoute,
+}
+
+const PrivateRouteRouteWithChildren = PrivateRouteRoute._addFileChildren(
+  PrivateRouteRouteChildren,
+)
+
+interface PublicRouteRouteChildren {
+  PublicEventosRoute: typeof PublicEventosRoute
+}
+
+const PublicRouteRouteChildren: PublicRouteRouteChildren = {
+  PublicEventosRoute: PublicEventosRoute,
+}
+
+const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
+  PublicRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  OrganizadorRouteRoute: OrganizadorRouteRouteWithChildren,
-  CriarContaRoute: CriarContaRoute,
-  EventosRoute: EventosRoute,
-  LoginRoute: LoginRoute,
-  MinhasInscricoesRoute: MinhasInscricoesRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
+  PrivateRouteRoute: PrivateRouteRouteWithChildren,
+  PublicRouteRoute: PublicRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

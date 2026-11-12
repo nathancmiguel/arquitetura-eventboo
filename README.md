@@ -1,10 +1,10 @@
-# Sistema de Inscrições e Presença em Eventos
+# Eventboo
 
 Participantes se inscrevem em eventos com vagas limitadas e o organizador acompanha os inscritos e marca a presença de cada um. Trabalho da disciplina Arquitetura e Projeto de Software: monólito em camadas com TanStack Start, Bun, SQLite (Drizzle) e Better Auth.
 
 ## Instalação
 
-Requisito: [Bun](https://bun.sh) 1.2 ou superior.
+Requisito: [Bun](https://bun.sh) 1.4 ou superior.
 
 ```bash
 bun install

@@ -1,24 +1,19 @@
-import { createFileRoute, Link, redirect, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import { z } from "zod";
 
 import {
 	AlertaFormulario,
 	errosNosCampos,
 	useAppForm,
 } from "#/components/formulario.tsx";
-import { LayoutAuth } from "#/components/layout-auth.tsx";
 import { FieldGroup } from "#/components/ui/field.tsx";
 import { destinoSeguro } from "#/lib/carregar.ts";
 import { useTratarResultado } from "#/lib/tratar-resultado.tsx";
 import { type LoginEntrada, loginSchema } from "#/lib/validators/auth.ts";
 import { entrar } from "#/server/auth.ts";
 
-export const Route = createFileRoute("/login")({
-	validateSearch: z.object({ redirect: z.string().optional() }),
-	beforeLoad: ({ context, search }) => {
-		if (context.usuario) throw redirect({ to: destinoSeguro(search.redirect) });
-	},
+export const Route = createFileRoute("/_auth/login")({
+	// O controle de acesso (já logado não entra) e o layout ficam em _auth/route.tsx.
 	head: () => ({ meta: [{ title: "Entrar — Eventboo" }] }),
 	component: Login,
 });
@@ -45,7 +40,7 @@ function Login() {
 	});
 
 	return (
-		<LayoutAuth modo="entrar" redirect={origem}>
+		<>
 			<form
 				noValidate
 				className="flex flex-col gap-6"
@@ -91,6 +86,6 @@ function Login() {
 					</Link>
 				</p>
 			</form>
-		</LayoutAuth>
+		</>
 	);
 }

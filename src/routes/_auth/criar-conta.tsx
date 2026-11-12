@@ -1,13 +1,11 @@
-import { createFileRoute, Link, redirect, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import { z } from "zod";
 
 import {
 	AlertaFormulario,
 	errosNosCampos,
 	useAppForm,
 } from "#/components/formulario.tsx";
-import { LayoutAuth } from "#/components/layout-auth.tsx";
 import { FieldGroup } from "#/components/ui/field.tsx";
 import { destinoSeguro } from "#/lib/carregar.ts";
 import { useTratarResultado } from "#/lib/tratar-resultado.tsx";
@@ -17,11 +15,8 @@ import {
 } from "#/lib/validators/auth.ts";
 import { criarConta } from "#/server/auth.ts";
 
-export const Route = createFileRoute("/criar-conta")({
-	validateSearch: z.object({ redirect: z.string().optional() }),
-	beforeLoad: ({ context, search }) => {
-		if (context.usuario) throw redirect({ to: destinoSeguro(search.redirect) });
-	},
+export const Route = createFileRoute("/_auth/criar-conta")({
+	// O controle de acesso (já logado não entra) e o layout ficam em _auth/route.tsx.
 	head: () => ({ meta: [{ title: "Criar conta — Eventboo" }] }),
 	component: CriarConta,
 });
@@ -50,7 +45,7 @@ function CriarConta() {
 	});
 
 	return (
-		<LayoutAuth modo="criar" redirect={origem}>
+		<>
 			<form
 				noValidate
 				className="flex flex-col gap-6"
@@ -106,6 +101,6 @@ function CriarConta() {
 					</Link>
 				</p>
 			</form>
-		</LayoutAuth>
+		</>
 	);
 }

@@ -4,7 +4,7 @@ import { FormularioEvento } from "#/components/formulario-evento.tsx";
 import { Cabecalho } from "#/components/layout.tsx";
 import { criarEvento } from "#/server/eventos.ts";
 
-export const Route = createFileRoute("/organizador/eventos/novo")({
+export const Route = createFileRoute("/_private/organizador/eventos/novo")({
 	head: () => ({ meta: [{ title: "Novo evento — Eventboo" }] }),
 	component: NovoEvento,
 });

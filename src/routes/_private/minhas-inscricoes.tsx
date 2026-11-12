@@ -1,4 +1,4 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Cabecalho } from "#/components/layout.tsx";
@@ -10,12 +10,7 @@ import { useTratarResultado } from "#/lib/tratar-resultado.tsx";
 import type { MinhaInscricao } from "#/repositories/contratos.ts";
 import { cancelarInscricao, minhasInscricoes } from "#/server/inscricoes.ts";
 
-export const Route = createFileRoute("/minhas-inscricoes")({
-	beforeLoad: ({ context, location }) => {
-		if (!context.usuario) {
-			throw redirect({ to: "/login", search: { redirect: location.href } });
-		}
-	},
+export const Route = createFileRoute("/_private/minhas-inscricoes")({
 	loader: async ({ location }) =>
 		dadosOuFalha(await minhasInscricoes(), location.href),
 	head: () => ({ meta: [{ title: "Minhas inscrições — Eventboo" }] }),
