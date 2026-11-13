@@ -4,9 +4,7 @@
 
 Participantes se inscrevem em eventos com vagas limitadas e o organizador acompanha os inscritos e marca a presença de cada um. Trabalho da disciplina Arquitetura e Projeto de Software: monólito em camadas com TanStack Start, Bun, SQLite (Drizzle) e Better Auth.
 
-- 
-
-- 
+Integrantes: Nathan Miguel, Ygor de Souza e Kevila Freitas
 
 - 
 
